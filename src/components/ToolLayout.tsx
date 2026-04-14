@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NavSearch from "@/components/NavSearch";
 
 export default function ToolLayout({
   title,
@@ -23,6 +24,9 @@ export default function ToolLayout({
           <span className="text-[14px] font-medium text-stone-400 truncate">
             {title}
           </span>
+          <div className="ml-auto">
+            <NavSearch />
+          </div>
         </div>
       </header>
       <main className="max-w-4xl mx-auto px-6 py-10 animate-fade-in">
