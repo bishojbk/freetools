@@ -1,65 +1,161 @@
-import Image from "next/image";
+import Link from "next/link";
+import { categories, getToolsByCategory } from "@/lib/tools";
+import {
+  Type, Code2, Palette, Sparkles, ArrowLeftRight,
+  FileText, CaseSensitive, AlignLeft, Replace,
+  Braces, Binary, Fingerprint, Hash, Link as LinkIcon,
+  Pipette, Blend, Square,
+  KeyRound, QrCode,
+  Ruler, Clock, Percent, Receipt,
+  Wrench,
+} from "lucide-react";
+
+const iconMap: Record<string, React.ComponentType<{ className?: string; size?: number; strokeWidth?: number }>> = {
+  Type, Code2, Palette, Sparkles, ArrowLeftRight,
+  FileText, CaseSensitive, AlignLeft, Replace,
+  Braces, Binary, Fingerprint, Hash, Link: LinkIcon,
+  Pipette, Blend, Square,
+  KeyRound, QrCode,
+  Ruler, Clock, Percent, Receipt,
+};
+
+const categoryStyle: Record<string, { iconBg: string; iconText: string }> = {
+  "Text Tools":               { iconBg: "bg-sky-50",     iconText: "text-sky-700" },
+  "Developer Tools":          { iconBg: "bg-violet-50",  iconText: "text-violet-700" },
+  "CSS & Design":             { iconBg: "bg-rose-50",    iconText: "text-rose-700" },
+  "Generators":               { iconBg: "bg-teal-50",    iconText: "text-teal-700" },
+  "Converters & Calculators": { iconBg: "bg-amber-50",   iconText: "text-amber-700" },
+};
+
+function ToolIcon({ name, category }: { name: string; category: string }) {
+  const Icon = iconMap[name] || Wrench;
+  const colors = categoryStyle[category] || categoryStyle["Text Tools"];
+  return (
+    <div className={`w-10 h-10 rounded-xl ${colors.iconBg} ${colors.iconText} flex items-center justify-center shrink-0`}>
+      <Icon size={20} strokeWidth={1.8} />
+    </div>
+  );
+}
+
+function CategoryIcon({ name }: { name: string }) {
+  const Icon = iconMap[name] || Wrench;
+  return <Icon size={16} strokeWidth={1.8} />;
+}
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="min-h-screen flex flex-col">
+      {/* ── Header ── */}
+      <header className="sticky top-0 z-50 bg-[#fafaf7]/80 backdrop-blur-xl border-b border-stone-200/50">
+        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+          <Link href="/" className="font-display text-[22px] text-stone-900 tracking-tight">
+            FreeTools
+          </Link>
+          <span className="text-[11px] font-medium text-stone-400 font-mono tracking-wide uppercase">
+            18 tools
+          </span>
+        </div>
+      </header>
+
+      {/* ── Hero ── */}
+      <div className="relative overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at 10% 0%, rgba(194,65,12,0.04) 0%, transparent 55%), radial-gradient(ellipse at 90% 100%, rgba(120,53,15,0.02) 0%, transparent 50%)",
+          }}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+        <div className="max-w-6xl mx-auto px-6 pt-24 sm:pt-32 pb-20 relative">
+          <div className="animate-fade-in-up">
+            <h1 className="font-display text-[clamp(3rem,7.5vw,5.5rem)] leading-[1.05] tracking-[-0.02em] text-stone-900">
+              Free Online
+              <br />
+              <span className="italic text-[#c2410c]">Tools</span>
+            </h1>
+          </div>
+          <div className="animate-fade-in-up mt-6" style={{ animationDelay: "0.1s" }}>
+            <p className="text-[17px] text-stone-500 max-w-lg leading-[1.7]">
+              Fast, private, and completely free. No signup, no tracking &mdash;
+              everything runs right in your browser.
+            </p>
+          </div>
+          <div className="animate-fade-in-up mt-8 flex flex-wrap gap-3" style={{ animationDelay: "0.2s" }}>
+            {["No tracking", "No ads", "100% client-side"].map((t) => (
+              <span
+                key={t}
+                className="inline-flex items-center gap-2 text-[13px] font-medium text-stone-500 bg-white/80 rounded-full px-4 py-2 border border-stone-200/60 shadow-[0_1px_2px_rgba(28,25,23,0.04)]"
+              >
+                <span className="w-[7px] h-[7px] rounded-full bg-emerald-500" />
+                {t}
+              </span>
+            ))}
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+      </div>
+
+      {/* ── Divider ── */}
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="h-px bg-stone-200/60" />
+      </div>
+
+      {/* ── Tools ── */}
+      <main className="max-w-6xl mx-auto px-6 py-14 flex-1 w-full">
+        {categories.map((category, catIdx) => {
+          const categoryTools = getToolsByCategory(category.name);
+          const colors = categoryStyle[category.name];
+          return (
+            <section
+              key={category.name}
+              className="mb-14 animate-fade-in-up"
+              style={{ animationDelay: `${0.28 + catIdx * 0.07}s` }}
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <div className={`w-8 h-8 rounded-lg ${colors?.iconBg} ${colors?.iconText} flex items-center justify-center`}>
+                  <CategoryIcon name={category.icon} />
+                </div>
+                <h2 className="font-display text-[19px] text-stone-900">
+                  {category.name}
+                </h2>
+                <span className="flex-1 h-px bg-stone-200/50 ml-1" />
+                <span className="text-[11px] font-medium text-stone-400 font-mono">
+                  {categoryTools.length}
+                </span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                {categoryTools.map((tool) => (
+                  <Link
+                    key={tool.slug}
+                    href={`/tools/${tool.slug}`}
+                    className="group flex items-start gap-4 bg-white rounded-2xl border border-stone-200/60 p-[18px] tool-card"
+                  >
+                    <ToolIcon name={tool.icon} category={tool.category} />
+                    <div className="min-w-0 pt-0.5">
+                      <h3 className="text-[15px] font-semibold text-stone-900 group-hover:text-[#c2410c] transition-colors duration-200">
+                        {tool.name}
+                      </h3>
+                      <p className="text-[13px] text-stone-400 mt-0.5 leading-[1.5]">
+                        {tool.description}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          );
+        })}
       </main>
+
+      {/* ── Footer ── */}
+      <footer className="border-t border-stone-200/50 mt-auto">
+        <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <span className="font-display text-[15px] text-stone-400 italic">
+            Free forever
+          </span>
+          <span className="text-[12px] text-stone-300">
+            No tracking. No ads. Your data never leaves your device.
+          </span>
+        </div>
+      </footer>
     </div>
   );
 }
