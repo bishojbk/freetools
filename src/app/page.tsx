@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { categories, getToolsByCategory } from "@/lib/tools";
+import { categories, getToolsByCategory, tools } from "@/lib/tools";
 import {
   Type, Code2, Palette, Sparkles, ArrowLeftRight,
   FileText, CaseSensitive, AlignLeft, Replace,
@@ -7,7 +7,13 @@ import {
   Pipette, Blend, Square,
   KeyRound, QrCode,
   Ruler, Clock, Percent, Receipt,
-  Wrench,
+  Wrench, Regex,
+  Heart, Calendar, Calculator, Briefcase, Hammer,
+  Scale, Flame, Droplets,
+  Cake, CalendarDays, Timer,
+  Dices, TrendingUp, Languages,
+  Tag, Landmark, DollarSign,
+  Paintbrush, Grid3X3,
 } from "lucide-react";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string; size?: number; strokeWidth?: number }>> = {
@@ -17,14 +23,26 @@ const iconMap: Record<string, React.ComponentType<{ className?: string; size?: n
   Pipette, Blend, Square,
   KeyRound, QrCode,
   Ruler, Clock, Percent, Receipt,
+  Regex,
+  Heart, Calendar, Calculator, Briefcase, Hammer,
+  Scale, Flame, Droplets,
+  Cake, CalendarDays, Timer,
+  Dices, TrendingUp, Languages,
+  Tag, Landmark, DollarSign,
+  Paintbrush, Grid3X3,
 };
 
 const categoryStyle: Record<string, { iconBg: string; iconText: string }> = {
-  "Text Tools":               { iconBg: "bg-sky-50",     iconText: "text-sky-700" },
-  "Developer Tools":          { iconBg: "bg-violet-50",  iconText: "text-violet-700" },
-  "CSS & Design":             { iconBg: "bg-rose-50",    iconText: "text-rose-700" },
-  "Generators":               { iconBg: "bg-teal-50",    iconText: "text-teal-700" },
-  "Converters & Calculators": { iconBg: "bg-amber-50",   iconText: "text-amber-700" },
+  "Text Tools":               { iconBg: "bg-sky-50",      iconText: "text-sky-700" },
+  "Developer Tools":          { iconBg: "bg-violet-50",   iconText: "text-violet-700" },
+  "CSS & Design":             { iconBg: "bg-rose-50",     iconText: "text-rose-700" },
+  "Generators":               { iconBg: "bg-teal-50",     iconText: "text-teal-700" },
+  "Converters & Calculators": { iconBg: "bg-amber-50",    iconText: "text-amber-700" },
+  "Health & Fitness":         { iconBg: "bg-red-50",      iconText: "text-red-700" },
+  "Date & Time":              { iconBg: "bg-cyan-50",     iconText: "text-cyan-700" },
+  "Math":                     { iconBg: "bg-indigo-50",   iconText: "text-indigo-700" },
+  "Business":                 { iconBg: "bg-lime-50",     iconText: "text-lime-700" },
+  "DIY & Home":               { iconBg: "bg-yellow-50",   iconText: "text-yellow-700" },
 };
 
 function ToolIcon({ name, category }: { name: string; category: string }) {
@@ -45,19 +63,17 @@ function CategoryIcon({ name }: { name: string }) {
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
-      {/* ── Header ── */}
       <header className="sticky top-0 z-50 bg-[#fafaf7]/80 backdrop-blur-xl border-b border-stone-200/50">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="font-display text-[22px] text-stone-900 tracking-tight">
             FreeTools
           </Link>
           <span className="text-[11px] font-medium text-stone-400 font-mono tracking-wide uppercase">
-            18 tools
+            {tools.length} tools
           </span>
         </div>
       </header>
 
-      {/* ── Hero ── */}
       <div className="relative overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
@@ -93,12 +109,10 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── Divider ── */}
       <div className="max-w-6xl mx-auto px-6">
         <div className="h-px bg-stone-200/60" />
       </div>
 
-      {/* ── Tools ── */}
       <main className="max-w-6xl mx-auto px-6 py-14 flex-1 w-full">
         {categories.map((category, catIdx) => {
           const categoryTools = getToolsByCategory(category.name);
@@ -107,7 +121,7 @@ export default function Home() {
             <section
               key={category.name}
               className="mb-14 animate-fade-in-up"
-              style={{ animationDelay: `${0.28 + catIdx * 0.07}s` }}
+              style={{ animationDelay: `${0.28 + catIdx * 0.05}s` }}
             >
               <div className="flex items-center gap-3 mb-5">
                 <div className={`w-8 h-8 rounded-lg ${colors?.iconBg} ${colors?.iconText} flex items-center justify-center`}>
@@ -145,7 +159,6 @@ export default function Home() {
         })}
       </main>
 
-      {/* ── Footer ── */}
       <footer className="border-t border-stone-200/50 mt-auto">
         <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="font-display text-[15px] text-stone-400 italic">

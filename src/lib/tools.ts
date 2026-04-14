@@ -18,27 +18,66 @@ export const categories: Category[] = [
   { name: "CSS & Design", description: "Visual design helpers", icon: "Palette" },
   { name: "Generators", description: "Generate passwords, QR codes & more", icon: "Sparkles" },
   { name: "Converters & Calculators", description: "Convert units and calculate", icon: "ArrowLeftRight" },
+  { name: "Health & Fitness", description: "Body metrics and health calculators", icon: "Heart" },
+  { name: "Date & Time", description: "Date math and timers", icon: "Calendar" },
+  { name: "Math", description: "Number crunching and conversions", icon: "Calculator" },
+  { name: "Business", description: "Pricing, margins, and loans", icon: "Briefcase" },
+  { name: "DIY & Home", description: "Project planning calculators", icon: "Hammer" },
 ];
 
 export const tools: Tool[] = [
+  // Text Tools
   { slug: "word-counter", name: "Word Counter", description: "Count words, characters, sentences, and paragraphs", category: "Text Tools", icon: "FileText" },
   { slug: "case-converter", name: "Case Converter", description: "Convert text between different cases", category: "Text Tools", icon: "CaseSensitive" },
   { slug: "lorem-ipsum", name: "Lorem Ipsum", description: "Generate placeholder text", category: "Text Tools", icon: "AlignLeft" },
   { slug: "find-replace", name: "Find & Replace", description: "Find and replace text with regex support", category: "Text Tools", icon: "Replace" },
+
+  // Developer Tools
   { slug: "json-formatter", name: "JSON Formatter", description: "Format, validate, and minify JSON", category: "Developer Tools", icon: "Braces" },
   { slug: "base64", name: "Base64 Encode/Decode", description: "Encode or decode Base64 strings", category: "Developer Tools", icon: "Binary" },
   { slug: "hash-generator", name: "Hash Generator", description: "Generate SHA-256, SHA-1, and SHA-512 hashes", category: "Developer Tools", icon: "Fingerprint" },
   { slug: "uuid-generator", name: "UUID Generator", description: "Generate random UUIDs (v4)", category: "Developer Tools", icon: "Hash" },
   { slug: "url-encode", name: "URL Encode/Decode", description: "Encode or decode URL components", category: "Developer Tools", icon: "Link" },
+  { slug: "regex-tester", name: "Regex Tester", description: "Test regular expressions with live matching", category: "Developer Tools", icon: "Regex" },
+
+  // CSS & Design
   { slug: "color-converter", name: "Color Converter", description: "Convert between HEX, RGB, and HSL", category: "CSS & Design", icon: "Pipette" },
   { slug: "gradient-generator", name: "Gradient Generator", description: "Create CSS gradients visually", category: "CSS & Design", icon: "Blend" },
   { slug: "box-shadow", name: "Box Shadow", description: "Generate CSS box-shadow values", category: "CSS & Design", icon: "Square" },
+
+  // Generators
   { slug: "password-generator", name: "Password Generator", description: "Generate secure random passwords", category: "Generators", icon: "KeyRound" },
   { slug: "qr-generator", name: "QR Code Generator", description: "Generate QR codes from text or URLs", category: "Generators", icon: "QrCode" },
+
+  // Converters & Calculators
   { slug: "unit-converter", name: "Unit Converter", description: "Convert between common units", category: "Converters & Calculators", icon: "Ruler" },
   { slug: "timestamp-converter", name: "Timestamp Converter", description: "Convert Unix timestamps to dates and back", category: "Converters & Calculators", icon: "Clock" },
   { slug: "percentage-calculator", name: "Percentage Calculator", description: "Calculate percentages easily", category: "Converters & Calculators", icon: "Percent" },
   { slug: "tip-calculator", name: "Tip Calculator", description: "Calculate tip and split the bill", category: "Converters & Calculators", icon: "Receipt" },
+
+  // Health & Fitness
+  { slug: "bmi-calculator", name: "BMI Calculator", description: "Calculate your Body Mass Index", category: "Health & Fitness", icon: "Scale" },
+  { slug: "calorie-calculator", name: "Calorie Calculator", description: "Estimate daily calorie needs", category: "Health & Fitness", icon: "Flame" },
+  { slug: "water-intake", name: "Water Intake", description: "Calculate recommended daily water intake", category: "Health & Fitness", icon: "Droplets" },
+
+  // Date & Time
+  { slug: "age-calculator", name: "Age Calculator", description: "Calculate exact age from date of birth", category: "Date & Time", icon: "Cake" },
+  { slug: "date-difference", name: "Date Difference", description: "Find the difference between two dates", category: "Date & Time", icon: "CalendarDays" },
+  { slug: "stopwatch", name: "Stopwatch", description: "Precise stopwatch with lap times", category: "Date & Time", icon: "Timer" },
+
+  // Math
+  { slug: "random-number", name: "Random Number", description: "Generate random numbers in a range", category: "Math", icon: "Dices" },
+  { slug: "average-calculator", name: "Average Calculator", description: "Calculate mean, median, min, max, and sum", category: "Math", icon: "TrendingUp" },
+  { slug: "roman-numerals", name: "Roman Numerals", description: "Convert between numbers and roman numerals", category: "Math", icon: "Languages" },
+
+  // Business
+  { slug: "discount-calculator", name: "Discount Calculator", description: "Calculate sale price and savings", category: "Business", icon: "Tag" },
+  { slug: "loan-calculator", name: "Loan Calculator", description: "Calculate monthly payments and total interest", category: "Business", icon: "Landmark" },
+  { slug: "profit-margin", name: "Profit Margin", description: "Calculate profit, margin, and markup", category: "Business", icon: "DollarSign" },
+
+  // DIY & Home
+  { slug: "paint-calculator", name: "Paint Calculator", description: "Estimate paint needed for a room", category: "DIY & Home", icon: "Paintbrush" },
+  { slug: "tile-calculator", name: "Tile Calculator", description: "Calculate tiles needed for a floor area", category: "DIY & Home", icon: "Grid3X3" },
 ];
 
 export function getToolsByCategory(categoryName: string): Tool[] {
