@@ -7,23 +7,31 @@ export default function RegexTester() {
   const [flags, setFlags] = useState("g");
   const [text, setText] = useState("");
 
+  const MAX_TEXT_LEN = 50_000;
+  const MAX_MATCHES = 1_000;
   const matches: { match: string; index: number; groups: string[] }[] = [];
   let error = "";
+  let truncated = false;
   if (pattern && text) {
-    try {
-      const re = new RegExp(pattern, flags);
-      let m;
-      if (flags.includes("g")) {
-        while ((m = re.exec(text)) !== null) {
-          matches.push({ match: m[0], index: m.index, groups: m.slice(1) });
-          if (!m[0]) re.lastIndex++;
+    if (text.length > MAX_TEXT_LEN) {
+      error = `Text too long (${text.length.toLocaleString()} chars). Limit is ${MAX_TEXT_LEN.toLocaleString()}.`;
+    } else {
+      try {
+        const re = new RegExp(pattern, flags);
+        let m;
+        if (flags.includes("g")) {
+          while ((m = re.exec(text)) !== null) {
+            if (matches.length >= MAX_MATCHES) { truncated = true; break; }
+            matches.push({ match: m[0], index: m.index, groups: m.slice(1) });
+            if (!m[0]) re.lastIndex++;
+          }
+        } else {
+          m = re.exec(text);
+          if (m) matches.push({ match: m[0], index: m.index, groups: m.slice(1) });
         }
-      } else {
-        m = re.exec(text);
-        if (m) matches.push({ match: m[0], index: m.index, groups: m.slice(1) });
+      } catch (e) {
+        error = (e as Error).message;
       }
-    } catch (e) {
-      error = (e as Error).message;
     }
   }
 
@@ -47,7 +55,10 @@ export default function RegexTester() {
         {error && <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg p-3">{error}</div>}
         {matches.length > 0 && (
           <div>
-            <div className="text-xs font-medium text-stone-500 mb-2">{matches.length} match{matches.length !== 1 ? "es" : ""}</div>
+            <div className="text-xs font-medium text-stone-500 mb-2">
+              {matches.length} match{matches.length !== 1 ? "es" : ""}
+              {truncated && ` (capped at ${MAX_MATCHES.toLocaleString()})`}
+            </div>
             <div className="space-y-1.5">
               {matches.map((m, i) => (
                 <div key={i} className="flex items-center gap-3 bg-stone-50 rounded-lg px-3 py-2 text-sm">

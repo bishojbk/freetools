@@ -230,7 +230,7 @@ export default function Home() {
         })}
       </main>
 
-      <footer className="border-t border-stone-200/50 mt-auto">
+      <div className="border-t border-stone-200/50 mt-auto">
         <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="font-display text-[15px] text-stone-400 italic">
             Free forever
@@ -239,7 +239,7 @@ export default function Home() {
             No tracking. No ads. Your data never leaves your device.
           </span>
         </div>
-      </footer>
+      </div>
     </div>
   );
 }

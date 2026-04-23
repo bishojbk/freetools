@@ -23,7 +23,7 @@ export default function UuidGenerator() {
           min={1}
           max={100}
           value={count}
-          onChange={(e) => setCount(Number(e.target.value))}
+          onChange={(e) => setCount(Math.max(1, Math.min(100, Number(e.target.value) || 1)))}
           className="w-20 px-3 py-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#c2410c]/20"
         />
         <button
